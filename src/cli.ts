@@ -17,6 +17,7 @@ const HELP_LINES = [
   '  --allow-extra          allow keys not in template',
   '  --allow-empty          allow empty values',
   '  --json                 JSON output',
+  '  --fix                  append missing keys to file',
   '  -h, --help             show help',
   '  -v, --version          show version'
 ];
@@ -29,6 +30,7 @@ interface CliOptions {
   allowExtra: boolean;
   allowEmpty: boolean;
   json: boolean;
+  fix: boolean;
   help: boolean;
   version: boolean;
 }
@@ -41,6 +43,7 @@ function parseArgs(argv: string[]): CliOptions {
     allowExtra: false,
     allowEmpty: false,
     json: false,
+    fix: false,
     help: false,
     version: false
   };
@@ -80,6 +83,9 @@ function parseArgs(argv: string[]): CliOptions {
         break;
       case '--allow-empty':
         opts.allowEmpty = true;
+        break;
+      case '--fix':
+        opts.fix = true;
         break;
       case '--json':
         opts.json = true;
@@ -129,6 +135,19 @@ export function run(argv: string[]): number {
     allowExtra: opts.allowExtra,
     allowEmpty: opts.allowEmpty
   });
+    if (opts.fix && result.missing.length > 0) {
+    try {
+      let appendContent = '\n# Automatically added by envcheck\n';
+      for (const key of result.missing) {
+        appendContent += key + '=\n';
+      }
+      fs.appendFileSync(opts.file, appendContent, 'utf8');
+      process.stdout.write('\n[FIXED] Appended ' + result.missing.length + ' missing key(s) to ' + opts.file + '\n');
+    } catch (e) {
+      process.stderr.write('\nenvcheck: failed to fix ' + opts.file + '\n');
+    }
+  }
+
   if (opts.json) {
     process.stdout.write(formatJson(result));
   } else {
