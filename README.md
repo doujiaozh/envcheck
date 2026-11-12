@@ -23,7 +23,7 @@ Exit code 0 on success, 1 on mismatch, 2 on usage error.
 - Extra keys in `.env` are errors by default.
 
 ## Options
-
+- `--fix`: append missing keys to file
 - `-e, --example <path>`: template file, default `.env.example`
 - `-f, --file <path>`: actual file, default `.env`
 - `--ignore <keys>`: comma-separated keys to ignore
