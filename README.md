@@ -1,3 +1,5 @@
+[![CI](https://github.com/doujiaozh/envcheck/actions/workflows/ci.yml/badge.svg)](https://github.com/doujiaozh/envcheck/actions/workflows/ci.yml)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 # envcheck
 
 Validate `.env` against `.env.example`. Reports missing, extra, and empty keys. Non-zero exit code for CI.
