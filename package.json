@@ -1,12 +1,16 @@
 {
   "name": "envcheck",
-  "version": "0.1.0",
+  "version": "0.2.0",
   "description": "Validate .env against .env.example.",
   "main": "dist/lib.js",
   "bin": {
     "envcheck": "dist/index.js"
   },
-  "files": ["dist", "README.md", "LICENSE"],
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
   "engines": {
     "node": ">=18"
   },
